@@ -17,10 +17,9 @@ interface Props {
 
 export default function Home(props: Props) {
   const { posts } = props;
-  console.log('posts', posts);
 
   return (
-    <div className='prose lg:prose-xl mx-auto max-w-screen-sm px-4  sm:px-6 pt-16'>
+    <div>
       <Head>
         <title>fromyto blog</title>
       </Head>
