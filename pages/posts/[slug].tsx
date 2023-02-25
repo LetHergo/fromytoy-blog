@@ -1,28 +1,19 @@
 import Head from 'next/head';
 import { useMDXComponent } from 'next-contentlayer/hooks';
 import { allPosts, type Post } from 'contentlayer/generated';
-import { compareDesc } from 'date-fns';
-
-const posts = allPosts.sort((a, b) => {
-  return compareDesc(new Date(a.date), new Date(b.date));
-});
 
 export const getStaticPaths = async () => {
   return {
-    paths: posts.map((item) => {
+    paths: allPosts.map((item) => {
       return { params: { slug: item.url } };
     }),
     fallback: false,
   };
 };
 
-export const getStaticProps = async () => {
-  // const foundIndex = posts.findIndex((post) => post.slug === params.slug.join('/'));
-
-  const post = posts[0];
-
-  // rss
-
+export const getStaticProps = async ({ params }: any) => {
+  const foundIndex = allPosts.findIndex((post) => post.url === params.slug);
+  const post = allPosts[foundIndex];
   return { props: { post } };
 };
 

@@ -4,9 +4,15 @@ import { allPosts, type Post } from 'contentlayer/generated';
 import PostCard from 'components/PostCard';
 
 export async function getStaticProps() {
-  const posts = allPosts.sort((a, b) => {
-    return compareDesc(new Date(a.date), new Date(b.date));
-  });
+  let posts: Post[] = allPosts;
+  console.log('posts', posts);
+  // console.log('new Date(a.date),', new Date(posts[0].date));
+
+  if (allPosts?.length > 1) {
+    // posts = allPosts.sort((a, b) => {
+    // return compareDesc(new Date(a.date), new Date(b.date));
+    // });
+  }
 
   return { props: { posts } };
 }
