@@ -1,0 +1,34 @@
+---
+date: 2019-5-21
+title: 初次使用Nginx
+---
+
+# 初次使用 Nginx
+
+想着腾讯云服务器买着吃灰好久了
+于是便诞生了这篇短文学习记录  
+服务器是 Centos 系统 主要是下面几个步骤
+
+
+```
+- yum install nginx -y
+- nginx
+  这时候可以访问 IP 看到测试页了
+vim /etc/nginx/nginx.conf
+```
+
+把 root 更改为/data/www
+然后默认配置的一条注释掉
+nginx.conf 配置文件中有一行是 include /etc/nginx/conf.d/\*.conf，把这行代码注释掉，保存退出。
+因为这行代码会使文件执行默认配置。
+
+- 检查配置文件是否正确 nginx -t
+- 在 data 目录下创建 www 文件夹 mkdir -p /data/www
+- cd 到 www 文件夹下 创建 index.html 因为默认是访问 index.html
+- 重启 nginx 命令
+
+```
+ nginx -s reload
+```
+
+对了 有可能发生端口被多个 nginx 占用的情况 这时候请杀掉 nginx 再重新启动
