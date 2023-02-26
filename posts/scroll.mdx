@@ -1,0 +1,40 @@
+---
+title: 解决子元素滚动影响父元素的
+date: '2016-11-18'
+categories:
+- javascript
+tags:
+- javascript
+---
+
+因为我司一个聊天窗口里面聊天内容滚动起来到顶部的时候再滚就会触发窗口滚动条的滚动，搜了一下，找到张鑫旭大大的文章，感谢。
+```
+$.fn.scrollUnique = function() {
+    return $(this).each(function() {
+        var eventType = 'mousewheel';
+        // 火狐是DOMMouseScroll事件
+        if (document.mozHidden !== undefined) {
+            eventType = 'DOMMouseScroll';
+        }
+        $(this).on(eventType, function(event) {
+            // 一些数据
+            var scrollTop = this.scrollTop,
+                scrollHeight = this.scrollHeight,
+                height = this.clientHeight;
+
+            var delta = (event.originalEvent.wheelDelta) ? event.originalEvent.wheelDelta : -(event.originalEvent.detail || 0);        
+
+            if ((delta > 0 && scrollTop <= delta) || (delta < 0 && scrollHeight - height - scrollTop <= -1 * delta)) {
+                // IE浏览器下滚动会跨越边界直接影响父级滚动，因此，临界时候手动边界滚动定位
+                this.scrollTop = delta > 0? 0: scrollHeight;
+                // 向上滚 || 向下滚
+                event.preventDefault();
+            }        
+        });
+    });	
+};
+```
+没错，依赖jQuery的一个扩展方法，上面代码只要拷贝到你页面的JS中，然后，你希望哪个元素滚动到底，父级不滚动，直接：
+
+$().scrollUnique();
+原文地址是http://www.zhangxinxu.com/wordpress/?p=5092

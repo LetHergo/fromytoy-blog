@@ -1,0 +1,27 @@
+---
+title: js点击删除最后一个元素节点
+date: '2016-11-16'
+categories:
+- javascript
+tags:
+- javascript
+---
+聊天框里需要显示未读信息，当点击的时候清楚气泡，也就是删除子元素。当然还需要一个判断，防止多次点击一个人的时候报错，JS本身不太熟练，学习ing...
+结构代码大概如下:
+```
+<div class="box"  onclick="remo(this)">  
+ 	<div>这里是昵称</div>  
+<span class="test">这里是未读信息条数</span>  
+</div>  
+
+
+<script type="text/javascript">  
+function remo(obj){  
+    var test = obj.getElementsByClassName('test')[0];  
+    var lastChild = obj.lastElementChild ? obj.lastElementChild : obj.lastChild;   
+    if(test == lastChild){  
+        obj.removeChild(test);  
+    }  
+}  
+</script> 
+```

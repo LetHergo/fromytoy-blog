@@ -1,0 +1,63 @@
+---
+title: call()和apply()使用
+date: '2017-6-22'
+categories:
+- javascript
+tags:
+- javascript
+---
+
+看到apply()和call()的时候感觉两者很像，所以整理一下用法顺便记录两者的区别
+# apply()
+ Function.apply(obj,args)
+## 参数
+obj
+在 Function 函数运行时指定的 this 值。需要注意的是，指定的 this 值并不一定是该函数执行时真正的 this 值，如果这个函数处于非严格模式下，则指定为 null 或 undefined 时会自动指向全局对象（浏览器中就是window对象），同时值为原始值（数字，字符串，布尔值）的 this 会指向该原始值的自动包装对象。
+args
+一个数组或者类数组对象，其中的数组元素将作为单独的参数传给 Function 函数。如果该参数的值为null 或 undefined，则表示不需要传入任何参数。从ECMAScript 5 开始可以使用类数组对象。浏览器兼容性请参阅本文底部内容。
+# call()
+Function.call(obj[, arg1[, arg2[, ...]]])
+## 参数
+obj
+在fun函数运行时指定的this值。需要注意的是，指定的this值并不一定是该函数执行时真正的this值，如果这个函数处于非严格模式下，则指定为null和undefined的this值会自动指向全局对象(浏览器中就是window对象)，同时值为原始值(数字，字符串，布尔值)的this会指向该原始值的自动包装对象。
+arg1, arg2, ...
+指定的参数列表。
+```
+function Product(name, price) {
+  this.name = name;
+  this.price = price;
+}
+
+function Food(name, price,category) {
+  Product.apply(this,arguments); 
+  this.category = category;
+}
+var student = new Food("qian",21,"一年级");
+console.log(student);
+//Food {name: "qian", price: 21, category: "一年级"}
+
+function good(name, price,category) {
+  Product.call(this,name,price); 
+  this.category = category;
+}
+
+var li = new good("jingxin",21,"一年级");
+console.log(li);
+//good {name: "jingxin", price: 21, category: "一年级"}
+
+```
+在一个子构造函数中，你可以通过调用父构造函数的apply/call方法来实现继承，Product.apply(this,arguments); Product.call(this,name,price); 实际他们的作用就是将Product函数中的name,price属性继承到了自身函数中。
+
+两者的区别很明显一个参数的形式是数组，一个指定的参数列表。
+
+# apply()的其他用法
+可以将一个数组默认的转换为一个参数列表[param1,param2,param3] 转换为 param1,param2,param3
+
+Math.max() 方法可返回指定的数中带有较大的值的那个数。
+Math.max([param1,param2])是不支持的
+```
+var a = [1,2,3,4];
+var b = Math.max.apply(null,a);
+// b 4
+```
+同理的还有Math.min()

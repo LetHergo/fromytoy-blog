@@ -1,0 +1,19 @@
+---
+title: el-input监听事件失效
+date: '2017-8-3'
+categories:
+- javascript
+- element
+tags:
+- javascript
+- element
+---
+ 在使用vue的时候使用element-ui的el-input组件的时候监听不了keyup.enter回车事件，查了一下原因应该是element-ui自身封装了一层input标签之后，把原来的事件隐藏了，所以如下代码运行是无响应的：
+```
+<el-input  v-model="input" @keyup.enter="add" placeholder="请输入内容" ></el-input>
+```
+ 在@keyup.enter后加.native即可解决 如下所示
+```
+<el-input  v-model="input" @keyup.enter.native="add" placeholder="请输入内容" ></el-input>
+```
+ 实验了之后发现不仅仅是keyup.enter回车事件，其他事件也被隐藏，需要在其后加.native

@@ -1,0 +1,31 @@
+---
+title: textarea中屏蔽回车默认换行
+date: 2016-11-17
+categories:
+- javascript
+tags:
+- javascript
+---
+我司网页版聊天里，用到多行文本框textarea，但是并没有清除默认回车事件，然后找了下解决方案，核心代码如下
+
+```
+<textarea id= "test"></textarea>  
+<script type="text/javascript">  
+  var test= document.getElementById("test");  
+ test.onkeydown = function(e){  
+    send(e);  
+ }  
+    function send(e){  
+    var code;  
+    if (!e) var  e = window.event;  
+    if (e.keyCode) code = e.keyCode;  
+    else if (e.which) code = e.which;  
+    if(code==13 && window.event){  
+        e.returnValue = false;  
+    }else if(code==13){  
+        e.preventDefault();  
+    }  
+  
+}  
+</script>  
+```

@@ -1,0 +1,55 @@
+---
+title: javascript创建对象、原型链
+date: '2017-1-15'
+categories:
+- javascript
+tags:
+- javascript
+---
+# 创建对象-字面量
+```
+
+var obj1 = {a:1,y:2}
+var obj2 = {
+	a:1,
+	b:2,
+	c:{
+	  d:3,
+	  e:4
+	}
+}
+
+```
+
+# 创建对象-new-原型链
+```
+
+function() lijingxin(){}
+lijingxin.prototype.a = 2
+var li = new lijingxin()  
+// new 构造的对象 原型指向构造器的prototype上，即lijingxin.prototype
+li.b = 3
+li.c = 4
+li.b // 3
+li.c // 4
+li.a // 2
+
+// 判断是否有该属性
+'a' in li  //true 表示li有 a属性 但是不一定是本身有 可能是原型链上的属性
+li.hasOwnProperty('a') // flase 
+hasOwnProperty()能判断一个对象是否包含自定义属性而不是原型链上的属性
+
+赋值
+li.a = 5  不会向上查找a属性，直接在li对象上查找有无a属性，无则创建a属性并赋值5
+li.hasOwnProperty('a') // true 
+li.a //5
+
+```
+
+```
+
+对象创建Object.create
+var obj = Object.create({x:1}) //创建obj对象并继承{x:1}对象的属性
+obj.hasOwnproperty('x') // false 
+
+```

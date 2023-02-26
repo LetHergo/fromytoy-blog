@@ -1,0 +1,15 @@
+---
+date: '2016-11-14'
+title: 写一些百分比宽度时候，不让padding和border影响宽度
+categories:
+- CSS
+tags:
+- CSS
+---
+# 几条CSS
+只需要给这几条CSS，顺便做了兼容。固定了盒子的尺寸，无论怎么调整边距都不会改变盒子的大小
+```
+box-sizing:border-box;  
+-moz-box-sizing:border-box; /* Firefox */  
+-webkit-box-sizing:border-box; /* Safari */  
+```

@@ -1,0 +1,37 @@
+---
+date: '2016-11-13'
+title: CSS文字控制在二行 超出部分不显示
+categories:
+- CSS
+tags:
+- CSS
+---
+
+
+# 解决办法。
+首先三条属性。
+```
+overflow:hidden; //超出的文本隐藏
+text-overflow:ellipsis; //溢出用省略号显示
+white-space:nowrap; //溢出不换行
+```
+这三条属性，只能显示一行，不能用在这里，那么如果显示多行呢？
+
+CSS3解决了这个问题，解决方法如下：
+```
+display:-webkit-box; //将对象作为弹性伸缩盒子模型显示。
+-webkit-box-orient:vertical; //从上到下垂直排列子元素（设置伸缩盒子的子元素排列方式）
+-webkit-line-clamp:2; //
+```
+这个属性不是css的规范属性，需要组合上面两个属性，表示显示的行数。
+
+最后的css样式如下：
+```
+overflow:hidden; 
+text-overflow:ellipsis;
+display:-webkit-box; 
+-webkit-box-orient:vertical;
+-webkit-line-clamp:2; 
+```
+
+以上对火狐不支持~暂时没想到好的解决办法~

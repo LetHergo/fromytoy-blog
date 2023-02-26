@@ -1,0 +1,25 @@
+---
+title:  jquery trigger()事件报错.
+date: '2016-12-15'
+categories:
+- jquery
+tags:
+- jquery
+---
+Uncaught RangeError: Maximum call stack size exceeded。
+起初，用trigger()是想隐藏input file，然后点击div的时候等于点击input file，便遇到了这个问题，这个问题的代码如下，请自行引入jQuery。
+
+```
+<div class="demo">  
+	      aaaaaaaaaaaaaaaaaa  
+	     <input class="demoInput" type="file" name="">  
+</div> 
+<script type="text/javascript">  
+	    $('.demo').click(function(){  
+	        $('.demoInput').trigger('click');  
+	    })  
+</script>
+```
+ 		   
+ 问题原因我想了下，应该是因为调用这个点击事件的div包含了要真正调用的input，所以好像会无限循环，导致报错Uncaught RangeError: Maximum call stack size exceeded。
+解决办法就是不要把input放在要调用点击事件的div或者标签里即可。
