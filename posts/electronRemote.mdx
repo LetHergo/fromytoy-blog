@@ -1,0 +1,17 @@
+---
+title: Electron remote模块的弃用以及新版本的remote
+date: '2023-2-27'
+---
+
+
+背景：  
+项目中remote的模块使用 查询对应的官方文档 发现最新Electron文档中的remote已经变更
+Electron已经移除Electron 9中的 remote 模块 官方说计划在Electron 14中完成。
+
+这种弃用对旧Electron升级新版本是比较大的打击
+
+要想知道有关移除计划的全部细节，请阅读并关注 这里[https://github.com/electron/electron/issues/21408]
+
+新版本中使用 @electron/remote[https://github.com/electron/remote]
+
+我认为实际上简单的通信直接使用IPC就行了

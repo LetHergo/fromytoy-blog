@@ -1,0 +1,40 @@
+---
+title: Node上传指定路径文件夹内图片到七牛云存储
+date: '2023-2-27'
+---
+
+使用的模块
+```
+import qiniu from 'qiniu'
+import fs from 'fs'
+import path from 'path'
+import inquirer from 'inquirer'
+import 'dotenv/config.js'
+```
+
+流程：
+1. dotenv读取本地env中的accessKey、secretKey、BucketName（这个对应七牛云存储的名称）
+2. 初始化qiniu sdk
+3. 使用inquirer注册对应的命令行交互 输入全路径地址 并且判断是不是正确的路径 以及是否是文件夹
+4. 上传指定路径下的所有图片文件到七牛云 
+ 1. 递归遍历指定目录，判断是否是文件夹和符合图片扩展名的文件 并返回该目录下的所有图片文件路径
+ 2. 循环上传文件
+
+其中踩坑记录 dotenv 调试的时候拿不到env中的值 
+用ES6 Module来写Node的时候引入需要处理下  
+参考https://stackoverflow.com/questions/64620877/cant-use-dotenv-with-es6-modules
+
+```
+import "dotenv/config.js";
+```
+
+
+项目地址[https://github.com/LetHergo/FolderToQiniu]
+
+并且发布到了npm 立个flag  
+后续:
+- 增加上传时间统计 以及上传进度条
+- 支持多类型文件上传
+- 等等等
+
+npm地址[https://www.npmjs.com/package/folder2qiniu]
